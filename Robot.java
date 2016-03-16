@@ -43,7 +43,8 @@ public class Robot {
             moveForward(r, 100); //need to modify moveForward function to take in a distance and move that much
             if (pingMeasurement(r) < 30)
             {
-                avoidObstacle();//avoidance
+            	//avoidance
+                avoidObstacle();
             }
             distanceTraveled += 10;
         }
