@@ -36,14 +36,16 @@ public class Robot {
             r.refreshAnalogPins();
         } */
         //3 Meter Movement
-        boolean objectDetected = false;
-        while (objectDetected == false)
+        boolean distanceTraveled = 0;
+        
+        while (distanceTraveled <= 300)
         {
-            moveForward(r, 100);
+            moveForward(r, 100); //need to modify moveForward function to take in a distance and move that much
             if (pingMeasurement(r) < 30)
             {
                 //avoidance
             }
+            distanceTraveled += 10;
         }
        
         /*Servo Movement
