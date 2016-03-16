@@ -63,6 +63,16 @@ public class Robot {
         
         r.close();
     }
+    public static void avoidObstacle(RXTXRobot r)
+    {
+    	rotateClockwise90();
+	moveForward(r,30);
+	rotateCounterClockwise90();
+	moveForward(r,30);
+	rotateCounterClockwise90();
+	moveForward(r,30);
+	rotateClockwise90();
+    }
     public static void moveForward(RXTXRobot r, int time)
     {
         r.runMotor(RXTXRobot.MOTOR1, 290, RXTXRobot.MOTOR2, -340, 0); // Run both motors forward indefinitely 
