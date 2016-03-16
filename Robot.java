@@ -43,10 +43,11 @@ public class Robot {
             moveForward(r, 100); //need to modify moveForward function to take in a distance and move that much
             if (pingMeasurement(r) < 30)
             {
-                //avoidance
+                avoidObstacle();//avoidance
             }
             distanceTraveled += 10;
         }
+        
        
         /*Servo Movement
         r.moveServo(RXTXRobot.SERVO1, 130);
