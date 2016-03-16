@@ -36,7 +36,7 @@ public class Robot {
             r.refreshAnalogPins();
         } */
         //3 Meter Movement
-        boolean distanceTraveled = 0;
+        int distanceTraveled = 0;
         
         while (distanceTraveled <= 300)
         {
@@ -74,6 +74,7 @@ public class Robot {
         ping = r.getPing(PING_PIN);
         return ping;
     }
+    public static void avoidObstacle(RXTXRobot r)
     public static double convertTemperature(double code)
     {
         double temp = (code-826.71)/(-9.90970853);
