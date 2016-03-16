@@ -43,10 +43,12 @@ public class Robot {
             moveForward(r, 100); //need to modify moveForward function to take in a distance and move that much
             if (pingMeasurement(r) < 30)
             {
-                //avoidance
+            	//avoidance
+                avoidObstacle();
             }
             distanceTraveled += 10;
         }
+        
        
         /*Servo Movement
         r.moveServo(RXTXRobot.SERVO1, 130);
@@ -61,6 +63,16 @@ public class Robot {
         //double windspeed = getAnemometerReading(r);
         
         r.close();
+    }
+    public static void avoidObstacle(RXTXRobot r)
+    {
+    	rotateClockwise90();
+	moveForward(r,30);
+	rotateCounterClockwise90();
+	moveForward(r,30);
+	rotateCounterClockwise90();
+	moveForward(r,30);
+	rotateClockwise90();
     }
     public static void moveForward(RXTXRobot r, int time)
     {
