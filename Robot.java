@@ -35,34 +35,43 @@ public class Robot {
             System.out.println(reading);
             r.refreshAnalogPins();
         } */
-        /*3 Meter Movement
-        r.runMotor(RXTXRobot.MOTOR1, 290, RXTXRobot.MOTOR2, -340, 0); // Run both motors forward indefinitely 
-		r.sleep(5870); // Pause execution for 5 seconds, but the motors keep running. 
-                r.runMotor(RXTXRobot.MOTOR1,0,RXTXRobot.MOTOR2,0,0); // Stop both motors  */
+        //3 Meter Movement
+        boolean objectDetected = false;
+        while (objectDetected == false)
+        {
+            moveForward(r, 100);
+            if (pingMeasurement(r) < 30)
+            {
+                //avoidance
+            }
+        }
+       
         /*Servo Movement
         r.moveServo(RXTXRobot.SERVO1, 130);
         r.sleep(10000);
         */
         
-        /*Ping Sensor
-        int pingSum = 0;
-        for (int x=0; x < 100; ++x) 
-		{ 
-			//Read the ping sensor value, which is connected to pin 12 
-			System.out.println("Response: " + r.getPing(PING_PIN) + " cm");
-                        pingSum += r.getPing(PING_PIN);
-		r.sleep(300); 
-		}
-        pingSum /= 100;
-        System.out.println("Ping is "+pingSum+"."); */
         //Thermistor
-        double thermistorReading = getThermistorReading(r, 0);
-        System.out.println("The probe read the value: " + thermistorReading);
-        System.out.println("In volts: " + (thermistorReading * (5.0/1023.0))); 
+        //double thermistorReading = getThermistorReading(r, 0);
+        //System.out.println("The probe read the value: " + thermistorReading);
+        //System.out.println("In volts: " + (thermistorReading * (5.0/1023.0))); 
         //Wind Speed
         //double windspeed = getAnemometerReading(r);
         
         r.close();
+    }
+    public static void moveForward(RXTXRobot r, int time)
+    {
+        r.runMotor(RXTXRobot.MOTOR1, 290, RXTXRobot.MOTOR2, -340, 0); // Run both motors forward indefinitely 
+	r.sleep(time); // Pause execution for 5 seconds, but the motors keep running. 
+        r.runMotor(RXTXRobot.MOTOR1,0,RXTXRobot.MOTOR2,0,0); // Stop both motors  
+    }
+    public static int pingMeasurement(RXTXRobot r)
+    {
+        int ping = 0;
+        ping = r.getPing(PING_PIN);
+        r.sleep(300);	
+        return ping;
     }
     public static double convertTemperature(double code)
     {
