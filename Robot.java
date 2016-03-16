@@ -72,7 +72,6 @@ public class Robot {
     {
         int ping = 0;
         ping = r.getPing(PING_PIN);
-        r.sleep(300);	
         return ping;
     }
     public static double convertTemperature(double code)
