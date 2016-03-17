@@ -40,7 +40,7 @@ public class Robot {
         
         while (distanceTraveled <= 300)
         {
-            moveForward(r, 100); //need to modify moveForward function to take in a distance and move that much
+            moveForward(r, 10); //need to modify moveForward function to take in a distance and move that much
             if (pingMeasurement(r) < 30)
             {
                 //avoidance
@@ -63,7 +63,7 @@ public class Robot {
         
         r.close();
     }
-    public static void moveForward(RXTXRobot r, int time)
+    public static void moveForward(RXTXRobot r, int ticks)
     {
         r.runEncodedMotor(RXTXRobot.MOTOR1, 100, ticks);  //need to adjust for specific robot
     }
