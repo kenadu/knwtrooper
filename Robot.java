@@ -69,14 +69,16 @@ public class Robot {
 	r.sleep(time); // Pause execution for 5 seconds, but the motors keep running. 
         r.runMotor(RXTXRobot.MOTOR1,0,RXTXRobot.MOTOR2,0,0); // Stop both motors  
     }
-    public static void rotateClockwise90(RXTXRobot r)
-    {
-    	
-    }
-     public static void rotateCounterClockwise90(RXTXRobot r)
-    {
-    	
-    }
++    public static void rotateClockwise90(RXTXRobot r)
+ +    {
+ +        r.runMotor(RXTXRobot.MOTOR1, 300, RXTXRobot.MOTOR2, 0, 0);
+ +        r.sleep(500);
+ +    }
+ +    public static void rotateCounterClockwise90(RXTXRobot r)
+ +    {
+ +        r.runMotor(RXTXRobot.MOTOR1, 0, RXTXRobot.MOTOR2, 300, 0);
+ +        r.sleep(500);
+ +    }
     public static int pingMeasurement(RXTXRobot r)
     {
         int ping = 0;
