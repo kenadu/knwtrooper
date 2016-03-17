@@ -85,16 +85,7 @@ public class Robot {
         ping = r.getPing(PING_PIN);
         return ping;
     }
-    public static void rotateClockwise90(RXTXRobot r)
-    {
-        r.runMotor(RXTXRobot.MOTOR1, 300, RXTXRobot.MOTOR2, 0, 0);
-        r.sleep(500);
-    }
-    public static void rotateCounterClockwise90(RXTXRobot r)
-    {
-        r.runMotor(RXTXRobot.MOTOR1, 0, RXTXRobot.MOTOR2, 300, 0);
-        r.sleep(500);
-    }
+
     public static void avoidObstacle(RXTXRobot r)
     {
     	rotateClockwise90(r);
