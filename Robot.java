@@ -76,6 +76,15 @@ public class Robot {
         return ping;
     }
     public static void avoidObstacle(RXTXRobot r)
+    {
+    	rotateClockwise90();
+	moveForward(r,30);
+	rotateCounterClockwise90();
+	moveForward(r,30);
+	rotateCounterClockwise90();
+	moveForward(r,30);
+	rotateClockwise90();
+    }
     public static double convertTemperature(double code)
     {
         double temp = (code-826.71)/(-9.90970853);
