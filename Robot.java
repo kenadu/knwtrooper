@@ -44,6 +44,7 @@ public class Robot {
             if (pingMeasurement(r) < 30)
             {
                 //avoidance
+                avoidObstacle(r);
             }
             distanceTraveled += 10;
         }
