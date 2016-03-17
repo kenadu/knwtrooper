@@ -20,8 +20,8 @@ public class Robot {
         r.setPort("COM3");
         r.setVerbose(true);
         r.connect();
-        r.attachMotor(RXTXRobot.MOTOR1, 5);
-        r.attachMotor(RXTXRobot.MOTOR2, 4);
+        r.attachMotor(RXTXRobot.MOTOR1, 6);
+        r.attachMotor(RXTXRobot.MOTOR2, 5);
         r.attachServo(RXTXRobot.SERVO1, 9);
         
         
