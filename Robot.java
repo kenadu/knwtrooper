@@ -65,9 +65,7 @@ public class Robot {
     }
     public static void moveForward(RXTXRobot r, int time)
     {
-        r.runMotor(RXTXRobot.MOTOR1, 290, RXTXRobot.MOTOR2, -340, 0); // Run both motors forward indefinitely 
-	r.sleep(time); // Pause execution for 5 seconds, but the motors keep running. 
-        r.runMotor(RXTXRobot.MOTOR1,0,RXTXRobot.MOTOR2,0,0); // Stop both motors  
+        r.runEncodedMotor(RXTXRobot.MOTOR1, 100, ticks);  //need to adjust for specific robot
     }
 +    public static void rotateClockwise90(RXTXRobot r)
  +    {
