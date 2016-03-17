@@ -95,14 +95,6 @@ public class Robot {
     }
     public static void avoidObstacle(RXTXRobot r)
     {
-        rotateClockwise90(r);
-        moveForward(r, 100);
-        rotateCounterClockwise90(r);
-        moveForward(r, 100);
-        rotateClockwise90(r);        
-    }
-    public static void avoidObstacle(RXTXRobot r)
-    {
     	rotateClockwise90(r);
 	moveForward(r,30);
 	rotateCounterClockwise90(r);
