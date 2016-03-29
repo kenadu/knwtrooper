@@ -12,7 +12,7 @@ import rxtxrobot.*;
 
 public class Robot {
 
-    final private static int PING_PIN = 13;
+    final private static int PING_PIN = 10;
     static int bump = 8;
     
     public static void main(String[] args) {
@@ -20,9 +20,17 @@ public class Robot {
         r.setPort("COM3");
         r.setVerbose(true);
         r.connect();
-        r.attachMotor(RXTXRobot.MOTOR1, 6);
-        r.attachMotor(RXTXRobot.MOTOR2, 5);
+        r.attachMotor(RXTXRobot.MOTOR1, 5);
+        r.attachMotor(RXTXRobot.MOTOR2, 6);
         r.attachServo(RXTXRobot.SERVO1, 9);
+        r.attachServo(RXTXRobot.SERVO2, 4);
+        
+        
+        
+        
+        
+        
+        
         
         
         /*Bump Sensor
@@ -36,11 +44,17 @@ public class Robot {
             r.refreshAnalogPins();
         } */
         //3 Meter Movement
-        int distanceTraveled = 0;
+        //r.runMotor(RXTXRobot.MOTOR1, 200, RXTXRobot.MOTOR2, 200, 0);
+        //r.sleep(100);
+        //r.runEncodedMotor(RXTXRobot.MOTOR1, -50, 250);
+        r.runEncodedMotor(RXTXRobot.MOTOR2, 30, 250);
+        //r.runEncodedMotor(RXTXRobot.MOTOR1, -50, 250, RXTXRobot.MOTOR2, 30, 250);
+        
+        /*int distanceTraveled = 0;
         
         while (distanceTraveled <= 300)
         {
-            moveForward(r, 10); //need to modify moveForward function to take in a distance and move that much
+            moveForward(r, 100); //need to modify moveForward function to take in a distance and move that much
             if (pingMeasurement(r) < 30)
             {
                 //avoidance
@@ -48,12 +62,18 @@ public class Robot {
             }
             distanceTraveled += 10;
         }
-       
-        /*Servo Movement
-        r.moveServo(RXTXRobot.SERVO1, 130);
-        r.sleep(10000);
-        */
-        
+       */
+        //Servo Movement
+        //r.moveServo(RXTXRobot.SERVO1, 180);
+        //r.sleep(10000);
+        //r.moveServo(RXTXRobot.SERVO1, 45);
+        //r.sleep(10000);
+        //r.moveServo(RXTXRobot.SERVO2, 45);
+        //r.sleep(20000);
+        //int conduct = r.getConductivity();
+        //System.out.println("Conductivity probe read" + conduct + ".");
+        //int x = pingMeasurement(r);
+        //System.out.println(x);
         //Thermistor
         //double thermistorReading = getThermistorReading(r, 0);
         //System.out.println("The probe read the value: " + thermistorReading);
@@ -65,18 +85,18 @@ public class Robot {
     }
     public static void moveForward(RXTXRobot r, int ticks)
     {
-        r.runEncodedMotor(RXTXRobot.MOTOR1, 100, ticks);  //need to adjust for specific robot
+        r.runEncodedMotor(RXTXRobot.MOTOR1, 255, 100, RXTXRobot.MOTOR2, 255, 500);  //need to adjust for specific robot
     }
-+    public static void rotateClockwise90(RXTXRobot r)
- +    {
- +        r.runMotor(RXTXRobot.MOTOR1, 300, RXTXRobot.MOTOR2, 0, 0);
- +        r.sleep(500);
- +    }
- +    public static void rotateCounterClockwise90(RXTXRobot r)
- +    {
- +        r.runMotor(RXTXRobot.MOTOR1, 0, RXTXRobot.MOTOR2, 300, 0);
- +        r.sleep(500);
- +    }
+    public static void rotateClockwise90(RXTXRobot r)
+     {
+         r.runMotor(RXTXRobot.MOTOR1, 300, RXTXRobot.MOTOR2, 0, 0);
+         r.sleep(500);
+     }
+     public static void rotateCounterClockwise90(RXTXRobot r)
+     {
+         r.runMotor(RXTXRobot.MOTOR1, 0, RXTXRobot.MOTOR2, 300, 0);
+         r.sleep(500);
+     }
     public static int pingMeasurement(RXTXRobot r)
     {
         int ping = 0;
