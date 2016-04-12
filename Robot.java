@@ -1,4 +1,4 @@
-/*3
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -7,17 +7,16 @@ package robot;
 import rxtxrobot.*;
 /**
  *
- * @author Maya
+ * @author kenadu
  */
-
 public class Robot {
 
-    final private static int PING_PIN = 7;
+    final private static int PING_PIN = 13;
     static int bump = 8;
     
     public static void main(String[] args) {
         RXTXRobot r = new ArduinoUno();
-        r.setPort("COM3");
+        r.setPort("/dev/tty.usbmodem1411");
         r.setVerbose(true);
         r.connect();
         r.attachMotor(RXTXRobot.MOTOR1, 5);
@@ -30,9 +29,50 @@ public class Robot {
         
         
         
-        
-        
-        
+        //starts from the Northeastern side facing to the south
+        //moving 15'
+        moveForward(r, 10000);
+        //facing to the west
+        rotateClockwise90(r);
+        //moving 18'
+        moveForward(r, 10000);
+        //facing to the north
+        rotateClockwise90(r);
+        //moving 9'
+        moveForward(r, 5000);
+        //facing to the west
+        rotateCounterClockwise90(r);
+        //moving 8'up to the ramp
+        moveForward(r, 10000);
+        //extend the windprobe
+        deployWindProbe(r);
+        //get the windspeed
+        getAnemometerReading(r);
+        //uncovered
+        getThermistorReading(r, 1);
+        //covered
+        getThermistorReading(r, 0);
+        //facing to the south
+        rotateCounterClockwise90(r);
+        //moving 12' off the ramp 
+        moveForward(r, 10000);
+        //facing the east
+        rotateCounterClockwise90(r);
+        //moveing 5' 
+        moveForward(r, 10000);
+        //facing the south
+        rotateClockwise90(r);
+        //moving 9'close to the sandbox
+        moveForward(r, 10000);
+        //facing the west
+        rotateClockwise90(r);
+        //to the sandbox
+        moveForward(r, 10000);
+        //get the conductivity
+        deployConductivityProbe(r);
+        //facing the south
+        rotateCounterClockwise90(r);
+
         
         
         /*Bump Sensor
