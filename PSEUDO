@@ -1,0 +1,54 @@
+/* Position cases*/
+
+NOTE: Haven't add the value of ticks for MOTOR
+
+// Top right
+
+//starts from the East side facing to the west
+        //moving 8"
+        moveForward(r, )
+        //facing to the south
+        rotatecounterClockwise90(r);
+        //moving 8"
+        moveForward(r, );
+        //avoid the rock, turn right
+        rotateClockwise90(r);
+        //moving 2"
+        moveForward(r, );
+        //facing to the south
+        rotateCounterClockwise90(r);
+        //moving 25" down 
+        moveForward(r, );
+        //capture the crystal
+        
+        //facing west
+        rotateClockwise90(r);
+        //moving 13" to sand box
+        moveForward(r, );
+        //get the conductivity
+        deployConductivityProbe(r);
+        //moving 10cm backward in order to turn north side 
+        moveBackward(r, );
+        //facing to the north
+        rotateClockwise90(r);
+        //moving 10" to the north
+        moveForward(r, );
+        //facing west
+        rotateCounterClockwise90(r);
+        //moving 10-15cm to reach on the straight line to the ramp
+        moveForward(r, );
+        //facing back north
+        rotateClockwise90(r);
+        //moving 4" on to the ramp
+        moveForward(r, );     
+        //extend the windprobe
+        deployWindProbe(r);
+        //get the windspeed
+        getAnemometerReading(r);
+        //uncovered
+        getThermistorReading(r, 1);
+        //covered
+        getThermistorReading(r, 0);
+        
+
+STOP
