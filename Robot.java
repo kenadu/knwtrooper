@@ -1,4 +1,4 @@
-/*
+/*3
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -7,74 +7,62 @@ package robot;
 import rxtxrobot.*;
 /**
  *
- * @author kenadu
+ * @author Maya
  */
+
 public class Robot {
 
-    final private static int PING_PIN = 13;
+    final private static int PING_PIN = 7;
     static int bump = 8;
     
     public static void main(String[] args) {
         RXTXRobot r = new ArduinoUno();
-        r.setPort("/dev/tty.usbmodem1411");
+        r.setPort("COM3");
         r.setVerbose(true);
         r.connect();
         r.attachMotor(RXTXRobot.MOTOR1, 5);
         r.attachMotor(RXTXRobot.MOTOR2, 6);
-        r.attachMotor(RXTXRobot.MOTOR3, 8);
+        r.attachMotor(RXTXRobot.MOTOR3, 9);
         r.attachServo(RXTXRobot.SERVO1, 10);
-
-        
-        
-        
-        
-        
-        //starts from the Northeastern side facing to the south
-        //moving 15'
-        moveForward(r, 10000);
-        //facing to the west
+        /*
+        Upper Left Corner
+        r.runMotor(RXTXRobot.MOTOR1, -500, RXTXRobot.MOTOR2, 360, 0);
+        r.sleep(7300);
         rotateClockwise90(r);
-        //moving 18'
-        moveForward(r, 10000);
-        //facing to the north
-        rotateClockwise90(r);
-        //moving 9'
-        moveForward(r, 5000);
-        //facing to the west
-        rotateCounterClockwise90(r);
-        //moving 8'up to the ramp
-        moveForward(r, 10000);
-        //extend the windprobe
+        r.runMotor(RXTXRobot.MOTOR1, -500, RXTXRobot.MOTOR2, 360, 0);
+        r.sleep(12000);
+        r.runMotor(RXTXRobot.MOTOR1, 0, RXTXRobot.MOTOR2, 0, 0);
         deployWindProbe(r);
-        //get the windspeed
-        getAnemometerReading(r);
-        //uncovered
-        getThermistorReading(r, 1);
-        //covered
-        getThermistorReading(r, 0);
-        //facing to the south
+        double windSpeed = getAnemometerReading(r);
+        System.out.println("Windspeed equals " + windSpeed + ".");
         rotateCounterClockwise90(r);
-        //moving 12' off the ramp 
-        moveForward(r, 10000);
-        //facing the east
-        rotateCounterClockwise90(r);
-        //moveing 5' 
-        moveForward(r, 10000);
-        //facing the south
-        rotateClockwise90(r);
-        //moving 9'close to the sandbox
-        moveForward(r, 10000);
-        //facing the west
-        rotateClockwise90(r);
-        //to the sandbox
-        moveForward(r, 10000);
-        //get the conductivity
+        r.runMotor(RXTXRobot.MOTOR1, -500, RXTXRobot.MOTOR2, 360, 0);
+        r.sleep(20000);
+        */
+        /* Sandbox code
+        boolean atSandbox = false;
+        while (atSandbox == false)
+        {
+            moveForward(r, 10);
+            if (pingMeasurement(r) <= 7)
+            {
+                r.runMotor(RXTXRobot.MOTOR1, 0, RXTXRobot.MOTOR2, 0, 0);
+                atSandbox = true;
+                break;
+            }
+        } 
         deployConductivityProbe(r);
-        //facing the south
-        rotateCounterClockwise90(r);
-
-        
-        
+        */
+        //r.runMotor(RXTXRobot.MOTOR1, -400, RXTXRobot.MOTOR2, 270, 0);
+        //r.sleep(6000);
+        //rotateClockwise90(r);
+        //r.runMotor(RXTXRobot.MOTOR1, -380, RXTXRobot.MOTOR2, 270, 0);
+        //r.sleep(10000);
+        //r.runMotor(RXTXRobot.MOTOR1, 0, RXTXRobot.MOTOR2, 0, 0);
+        /*deployWindProbe(r);
+        double windSpeed = getAnemometerReading(r);
+        System.out.println("Windspeed equals " + windSpeed + ".");
+        */
         /*Bump Sensor
         r.refreshAnalogPins();
         int reading = r.getAnalogPin(2).getValue();
@@ -84,55 +72,25 @@ public class Robot {
             reading = r.getAnalogPin(2).getValue();
             System.out.println(reading);
             r.refreshAnalogPins();
-        } */
-        //Navigation
-        // A general outline for our navigation.  If you guys could double check the map and see if this makes sense as well as determine
-        //how to move these distances we should be good.
-
-        /*Move South for < 3 feet 
-        rotateCounterClockwise90(r);
-        Move east for enough time to get onto ramp (test time it takes to ascend ramp)
-        Stop Robot
-        deployWindProbe(r)
-        getAnemometerReading(r);
-        rotateClockwise90(r);
-        Move south for about 20 feet
-        rotateCounterClockwise90(r);
-        Move east for 3 feet
-        rotateClockwise90(r);
-        Move south until ping reads 1 cm away from sandbox (take ping directly after rotation and at cm away to get distance for x)
-        Stop robot
-        deployConductivityProbe(r);
-        rotateCounterClockwise90(r);
-        Move east until ping sensor detects middle object
-        rotateClockwise90(r);
-        Move South for 2 feet
-        rotateCounterClockwise90(r);
-        Move east for 6 feet
-        rotateCounterClockwise90(r);
-        Move north until ping sensor detects rock object
-        rotateClockwise90(r);
-        Move east until ping sensor detects eastern wall
-        rotateCounterClockwise90(r);
-        Move north until ping sensor detects Northern wall
-        Stop
+        } 
         */
-        
         r.close();
     }
-    public static void moveForward(RXTXRobot r, int ticks)
+    public static void moveForward(RXTXRobot r, int distance)
     {
-        r.runEncodedMotor(RXTXRobot.MOTOR1, 255, 100, RXTXRobot.MOTOR2, 255, 500);  //need to adjust for specific robot
+        
+        r.runMotor(RXTXRobot.MOTOR1, -500, RXTXRobot.MOTOR2, 400, 0);
+        r.sleep(13);
     }
-    public static void rotateClockwise90(RXTXRobot r) //Please adjust accordingly
+    public static void rotateClockwise90(RXTXRobot r)
      {
-         r.runMotor(RXTXRobot.MOTOR1, 300, RXTXRobot.MOTOR2, 0, 0);
-         r.sleep(500);
+        r.runMotor(RXTXRobot.MOTOR1, 220, RXTXRobot.MOTOR2, 200, 0);
+        r.sleep(1800);
      }
-     public static void rotateCounterClockwise90(RXTXRobot r) //Please adjust accordingly
+     public static void rotateCounterClockwise90(RXTXRobot r)
      {
-         r.runMotor(RXTXRobot.MOTOR1, 0, RXTXRobot.MOTOR2, 300, 0);
-         r.sleep(500);
+        r.runMotor(RXTXRobot.MOTOR1, -220, RXTXRobot.MOTOR2, -200, 0);
+        r.sleep(1800);
      }
     public static int pingMeasurement(RXTXRobot r)
     {
@@ -155,6 +113,11 @@ public class Robot {
     {
         double temp = (code-826.71)/(-9.90970853);
         return temp;
+    }
+    public static double convertConductivity(double code)
+    {
+        double conduct = (code-1093.6)/(-3958.2);
+        return conduct;
     }
     public static double getThermistorReading(RXTXRobot r, int pin) 
     {
@@ -181,22 +144,34 @@ public class Robot {
        System.out.println("Outside temperature is "+outsideTemp+" degrees Celsius");
        double insideTemp = getThermistorReading(r, 0);
        System.out.println("Inside temperature is "+insideTemp+" degrees Celsius");
+       double tempDifference;
        double windSpeed = 0;
+       tempDifference = insideTemp - outsideTemp;
+       windSpeed = Math.pow(tempDifference, 2);
+       windSpeed *= .1068;
+       windSpeed -= (.112*tempDifference);
+       windSpeed += .1085;
        
        return windSpeed;
     }
-    public static void deployWindProbe(RXTXRobot r) //Method for extending wind probe
+    public static void deployWindProbe(RXTXRobot r)
     {
-        r.runMotor(RXTXRobot.MOTOR3, -100, 0);
-        r.sleep(90000);
+        r.runMotor(RXTXRobot.MOTOR3, -200, 0);
+        r.sleep(35000);
     }
-    public static void deployConductivityProbe(RXTXRobot r) //Method for deploying conductivity probe
+    public static void retractWindProbe(RXTXRobot r)
     {
-        r.moveServo(RXTXRobot.SERVO1, 180);
+        r.runMotor(RXTXRobot.MOTOR3, 200, 0);
+        r.sleep(24000);
+    }
+    public static void deployConductivityProbe(RXTXRobot r)
+    {
+        r.moveServo(RXTXRobot.SERVO1, 160);
         r.sleep(15000);
         r.moveServo(RXTXRobot.SERVO1, 45);
         r.sleep(2000);
-        int conduct = r.getConductivity();
+        double conduct = r.getConductivity();
+        conduct = convertConductivity(conduct);
         System.out.println("Conductivity probe read" + conduct + ".");
         r.sleep(20000);
     }
