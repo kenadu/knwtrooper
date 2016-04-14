@@ -1,0 +1,44 @@
+//start from the bottom left
+
+ //facing to the east
+ //moving 6.5'to the east
+ moveForward(r, );
+ //turning ccw facing to north
+ rotateCounterClockwise90(r);
+ //moving 14' to the north: the sandbox
+ moveForward(r, );
+ //get the conductivity
+ deployConductivityProbe(r);
+ //move backward a little bit to leave the sandbox
+ moveBackward(r, 2000);
+ //turning cw to the east
+ rotateClockwise90(r);
+ //moving 4' to the east
+ moveForward(r, );
+ //turning ccw facing to north
+ rotateCounterClockwise90(r);
+ //moving 16' to the north
+ moveForward(r, );
+ //turning ccw facing to west
+ rotateCounterClockwise90(r);
+ //moving 4' to the west
+ moveForward(r, );
+ //turning cw to the north
+ rotateClockwise90(r);
+ //moving 11' to the north on to the ramp
+ moveForward(r, );
+ //extend the windprobe
+ deployWindProbe(r);
+ //get the windspeed
+ getAnemometerReading(r);
+ //uncovered
+ getThermistorReading(r, 1);
+ //covered
+ getThermistorReading(r, 0);
+ //getting back the probe
+ //moving 6' north off the ramp 
+ moveForward(r, );
+ //turning ccw facing to west
+ rotateCounterClockwise90(r);
+ //moving 7' to the top west location
+ moveForward(r, );
