@@ -24,62 +24,75 @@ public class Robot {
         r.attachMotor(RXTXRobot.MOTOR2, 6);
         r.attachMotor(RXTXRobot.MOTOR3, 9);
         r.attachServo(RXTXRobot.SERVO1, 10);
+        
+        //Upper Left Quadrant
         /*
-        Upper Left Corner
         r.runMotor(RXTXRobot.MOTOR1, -500, RXTXRobot.MOTOR2, 360, 0);
         r.sleep(7300);
         rotateClockwise90(r);
-        r.runMotor(RXTXRobot.MOTOR1, -500, RXTXRobot.MOTOR2, 360, 0);
-        r.sleep(12000);
-        r.runMotor(RXTXRobot.MOTOR1, 0, RXTXRobot.MOTOR2, 0, 0);
-        deployWindProbe(r);
-        double windSpeed = getAnemometerReading(r);
-        System.out.println("Windspeed equals " + windSpeed + ".");
+        ramp(r);
+        sandbox(r);
+        moveBackward(r, 10);
         rotateCounterClockwise90(r);
-        r.runMotor(RXTXRobot.MOTOR1, -500, RXTXRobot.MOTOR2, 360, 0);
-        r.sleep(20000);
+        r.runMotor(RXTXRobot.MOTOR1, -500, RXTXRobot.MOTOR2, 360, 0); //Move for a little bit
+        r.sleep(?);
+        rotateClockwise90(r);
+        r.runMotor(RXTXRobot.MOTOR1, -500, RXTXRobot.MOTOR2, 360, 0); //Move into solar charging region
+        r.sleep(?)
         */
-        /* Sandbox code
-        boolean atSandbox = false;
-        while (atSandbox == false)
+        /*Upper Right Quadrant
+        //Face the robot to the West
+        r.runMotor(RXTXRobot.MOTOR1, -500, RXTXRobot.MOTOR2, 360, 0); //Move west
+        r.sleep(?);
+        rotateCounterClockwise90(r); //Rotate
+        while (pingMeasurement(r) < 20)
         {
             moveForward(r, 10);
-            if (pingMeasurement(r) <= 7)
+            if (pingMeasurement(r) <= 20)
             {
                 r.runMotor(RXTXRobot.MOTOR1, 0, RXTXRobot.MOTOR2, 0, 0);
-                atSandbox = true;
+                rotateClockwise90(r);
                 break;
             }
         } 
-        deployConductivityProbe(r);
+        r.runMotor(RXTXRobot.MOTOR1, -500, RXTXRobot.MOTOR2, 360, 0); //Move west
+        r.sleep(?);
+        //Position robot to line up with ramp
+        ramp(r)
+        sandbox(r)
         */
-        //r.runMotor(RXTXRobot.MOTOR1, -400, RXTXRobot.MOTOR2, 270, 0);
-        //r.sleep(6000);
-        //rotateClockwise90(r);
-        //r.runMotor(RXTXRobot.MOTOR1, -380, RXTXRobot.MOTOR2, 270, 0);
-        //r.sleep(10000);
-        //r.runMotor(RXTXRobot.MOTOR1, 0, RXTXRobot.MOTOR2, 0, 0);
-        /*deployWindProbe(r);
-        double windSpeed = getAnemometerReading(r);
-        System.out.println("Windspeed equals " + windSpeed + ".");
+        /*Lower Left Quadrant
+        //Move to line up with sandbox
+        sandbox(r);
+        moveBackward(r, 10);
+        rotateClockwise90(r);
+        //Move to Ramp Quadrant
+        ramp(r);
+        //Move to rock quadrant
+        //Avoid rock
+        //Move to solar quadrant
         */
-        /*Bump Sensor
-        r.refreshAnalogPins();
-        int reading = r.getAnalogPin(2).getValue();
-        while (reading > 800)
-        {
-            r.runMotor(RXTXRobot.MOTOR1, 250, RXTXRobot.MOTOR2, -340, 0);
-            reading = r.getAnalogPin(2).getValue();
-            System.out.println(reading);
-            r.refreshAnalogPins();
-        } 
+        /*Lower Right Quadrant
+        //Move to Sandbox
+        sandbox(r);
+        //Move to ramp
+        ramp(r);
+        //Move to rock
+        //Avoid Rock
         */
+        
         r.close();
     }
     public static void moveForward(RXTXRobot r, int distance)
     {
         
         r.runMotor(RXTXRobot.MOTOR1, -500, RXTXRobot.MOTOR2, 400, 0);
+        r.sleep(13);
+    }
+        public static void moveBackward(RXTXRobot r, int distance)
+    {
+        
+        r.runMotor(RXTXRobot.MOTOR1, 500, RXTXRobot.MOTOR2, -400, 0);
         r.sleep(13);
     }
     public static void rotateClockwise90(RXTXRobot r)
@@ -174,6 +187,35 @@ public class Robot {
         conduct = convertConductivity(conduct);
         System.out.println("Conductivity probe read" + conduct + ".");
         r.sleep(20000);
-    }
     
+ 
+        }
+    public static void sandbox(RXTXRobot r)
+    {
+        boolean atSandbox = false;
+        while (atSandbox == false) //Go towards sandbox
+        {
+            moveForward(r, 10);
+            if (pingMeasurement(r) <= 7)
+            {
+                r.runMotor(RXTXRobot.MOTOR1, 0, RXTXRobot.MOTOR2, 0, 0);
+                atSandbox = true;
+                break;
+            }   
+        }
+        deployConductivityProbe(r); //Get conductivity
+    }
+    public static void ramp(RXTXRobot r)
+    {
+        r.runMotor(RXTXRobot.MOTOR1, -500, RXTXRobot.MOTOR2, 360, 0);
+        r.sleep(12000);
+        r.runMotor(RXTXRobot.MOTOR1, 0, RXTXRobot.MOTOR2, 0, 0);
+        deployWindProbe(r); 
+        double windSpeed = getAnemometerReading(r);
+        System.out.println("Windspeed equals " + windSpeed + ".");
+        rotateCounterClockwise90(r);
+        r.runMotor(RXTXRobot.MOTOR1, -500, RXTXRobot.MOTOR2, 360, 0);
+        r.sleep(20000);
+    }
+        
 }
