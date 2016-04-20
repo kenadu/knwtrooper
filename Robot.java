@@ -25,6 +25,68 @@ public class Robot {
         r.attachMotor(RXTXRobot.MOTOR3, 9);
         r.attachServo(RXTXRobot.SERVO1, 10);
         
+        
+         //Obstacle -> Ramp -> Sanbox -> Soccer ball -> back to Obstacle quadrant
+        r.runMotor(RXTXRobot.MOTOR1, -450, RXTXRobot.MOTOR2, 370, 0);
+        r.sleep(12000);
+        rotateCounterClockwise90(r);
+        r.runMotor(RXTXRobot.MOTOR1, -450, RXTXRobot.MOTOR2, 375, 0);
+        r.sleep(8000);
+        rotateClockwise90(r);
+        ramp(r);
+        sandbox(r);
+        moveBackward(r, 300);
+        rotateClockwise90(r);
+                r.runMotor(RXTXRobot.MOTOR1, -500, RXTXRobot.MOTOR2, 360, 0);
+        r.sleep(10000);
+        
+                r.runMotor(RXTXRobot.MOTOR1, -450, RXTXRobot.MOTOR2, 375, 0);
+        r.sleep(4500);
+        rotateCounterClockwise90(r);
+                        r.runMotor(RXTXRobot.MOTOR1, -450, RXTXRobot.MOTOR2, 375, 0);
+        r.sleep(18000);
+        //
+
+        
+        /*
+        //Sandbox -> Soccer ball -> Obstacle -> ramp -> back to sandbox quadrant
+        =================================
+        r.runMotor(RXTXRobot.MOTOR1, -480, RXTXRobot.MOTOR2, 330, 0);
+        r.sleep(5000);
+        rotateCounterClockwise90(r);
+        sandbox(r);
+        moveBackward(r, 300);
+        rotateClockwise90(r);
+                r.runMotor(RXTXRobot.MOTOR1, -500, RXTXRobot.MOTOR2, 360, 0);
+        r.sleep(10000);
+        
+                r.runMotor(RXTXRobot.MOTOR1, -450, RXTXRobot.MOTOR2, 375, 0);
+        r.sleep(4500);
+        rotateCounterClockwise90(r);
+                        r.runMotor(RXTXRobot.MOTOR1, -450, RXTXRobot.MOTOR2, 375, 0);
+        r.sleep(18000);
+                rotateCounterClockwise90(r);
+                                        r.runMotor(RXTXRobot.MOTOR1, -450, RXTXRobot.MOTOR2, 375, 0);
+        r.sleep(5000);
+        rotateClockwise90(r);
+                                r.runMotor(RXTXRobot.MOTOR1, -450, RXTXRobot.MOTOR2, 375, 0);
+        r.sleep(5500);
+        rotateCounterClockwise90(r);
+        ramp(r);
+        deployWindProbe(r);
+        retractWindProbe(r);
+        rotateCounterClockwise90(r);
+                                r.runMotor(RXTXRobot.MOTOR1, -450, RXTXRobot.MOTOR2, 375, 0);
+        r.sleep(18000);
+        rotateClockwise90(r);
+        =============================================
+        */
+        
+        
+        
+        
+        
+        
         //Upper Left Quadrant
         upperLeftQuadrant(r);
         //Upper Right Quadrant
