@@ -27,12 +27,32 @@ public class Robot {
         
         
          //Obstacle -> Ramp -> Sanbox -> Soccer ball -> back to Obstacle quadrant
+         //option 1 : not using avoiding rock part
         r.runMotor(RXTXRobot.MOTOR1, -450, RXTXRobot.MOTOR2, 370, 0);
         r.sleep(12000);
         rotateCounterClockwise90(r);
         r.runMotor(RXTXRobot.MOTOR1, -450, RXTXRobot.MOTOR2, 375, 0);
         r.sleep(8000);
         rotateClockwise90(r);
+        ramp(r);
+        sandbox(r);
+        moveBackward(r, 300);
+        rotateClockwise90(r);
+                r.runMotor(RXTXRobot.MOTOR1, -500, RXTXRobot.MOTOR2, 360, 0);
+        r.sleep(10000);
+        
+                r.runMotor(RXTXRobot.MOTOR1, -450, RXTXRobot.MOTOR2, 375, 0);
+        r.sleep(4500);
+        rotateCounterClockwise90(r);
+                        r.runMotor(RXTXRobot.MOTOR1, -450, RXTXRobot.MOTOR2, 375, 0);
+        r.sleep(18000);
+        
+        
+        //option 2:
+        r.runMotor(RXTXRobot.MOTOR1, -450, RXTXRobot.MOTOR2, 370, 0);
+        r.sleep(5000);
+        rotateCounterClockwise90(r);
+        avoidRock(r);
         ramp(r);
         sandbox(r);
         moveBackward(r, 300);
