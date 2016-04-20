@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package robot;
+package robot;  
 import rxtxrobot.*;
 /**
  *
@@ -26,83 +26,71 @@ public class Robot {
         r.attachServo(RXTXRobot.SERVO1, 10);
         
         //Upper Left Quadrant
-        /*
-        r.runMotor(RXTXRobot.MOTOR1, -500, RXTXRobot.MOTOR2, 360, 0);
-        r.sleep(7300);
-        rotateClockwise90(r);
-        ramp(r);
-        sandbox(r);
-        moveBackward(r, 10);
-        rotateCounterClockwise90(r);
-        r.runMotor(RXTXRobot.MOTOR1, -500, RXTXRobot.MOTOR2, 360, 0); //Move for a little bit
-        r.sleep(?);
-        rotateClockwise90(r);
-        r.runMotor(RXTXRobot.MOTOR1, -500, RXTXRobot.MOTOR2, 360, 0); //Move into solar charging region
-        r.sleep(?)
-        */
-        /*Upper Right Quadrant
-        //Face the robot to the West
-        r.runMotor(RXTXRobot.MOTOR1, -500, RXTXRobot.MOTOR2, 360, 0); //Move west
-        r.sleep(?);
-        rotateCounterClockwise90(r); //Rotate
-        while (pingMeasurement(r) < 20)
+        upperLeftQuadrant(r);
+        //Upper Right Quadrant
+        upperRightQuadrant(r);
+        //Lower Left Quadrant
+        lowerLeftQuadrant(r);
+        //Lower Right Quadrant
+        lowerRightQuadrant(r);
+        /*Bump Sensor
+        r.refreshAnalogPins();
+        int reading = r.getAnalogPin(2).getValue();
+        while (reading > 800)
         {
-            moveForward(r, 10);
-            if (pingMeasurement(r) <= 20)
-            {
-                r.runMotor(RXTXRobot.MOTOR1, 0, RXTXRobot.MOTOR2, 0, 0);
-                rotateClockwise90(r);
-                break;
-            }
-        } 
-        r.runMotor(RXTXRobot.MOTOR1, -500, RXTXRobot.MOTOR2, 360, 0); //Move west
-        r.sleep(?);
-        //Position robot to line up with ramp
-        ramp(r)
-        sandbox(r)
+            r.runMotor(RXTXRobot.MOTOR1, -500, RXTXRobot.MOTOR2, 400, 0);
+            reading = r.getAnalogPin(2).getValue();
+            r.refreshAnalogPins();
+        }
         */
-        /*Lower Left Quadrant
-        //Move to line up with sandbox
-        sandbox(r);
-        moveBackward(r, 10);
-        rotateClockwise90(r);
-        //Move to Ramp Quadrant
-        ramp(r);
-        //Move to rock quadrant
-        //Avoid rock
-        //Move to solar quadrant
-        */
-        /*Lower Right Quadrant
-        //Move to Sandbox
-        sandbox(r);
-        //Move to ramp
-        ramp(r);
-        //Move to rock
-        //Avoid Rock
-        */
-        
         r.close();
     }
     public static void moveForward(RXTXRobot r, int distance)
     {
         
-        r.runMotor(RXTXRobot.MOTOR1, -500, RXTXRobot.MOTOR2, 400, 0);
-        r.sleep(13);
+        int traveled = 0;
+        while (distance > traveled)
+        {
+            if (pingMeasurement(r) <= 10)
+            {
+                r.runMotor(RXTXRobot.MOTOR1, 0, RXTXRobot.MOTOR2, 0, 0);
+                while (pingMeasurement(r) <= 10)
+                {
+                    rotateClockwise90(r);
+                    r.runMotor(RXTXRobot.MOTOR1, -470, RXTXRobot.MOTOR2, 360, 0); 
+                    r.sleep(500);
+                    rotateCounterClockwise90(r);
+                }
+                r.runMotor(RXTXRobot.MOTOR1, -470, RXTXRobot.MOTOR2, 360, 0); 
+                r.sleep(270);
+                rotateCounterClockwise90(r);
+                r.runMotor(RXTXRobot.MOTOR1, -470, RXTXRobot.MOTOR2, 360, 0);
+                r.sleep(500);
+                traveled += 20;
+                
+            }
+            else
+            {
+                r.runMotor(RXTXRobot.MOTOR1, -470, RXTXRobot.MOTOR2, 360, 0); //Move west
+                r.sleep(270);
+                traveled += 20;
+            }            
+        }   
     }
         public static void moveBackward(RXTXRobot r, int distance)
     {
         
-        r.runMotor(RXTXRobot.MOTOR1, 500, RXTXRobot.MOTOR2, -400, 0);
-        r.sleep(13);
+        r.runMotor(RXTXRobot.MOTOR1, 470, RXTXRobot.MOTOR2, -400, 0);
+        r.sleep(270);
     }
     public static void rotateClockwise90(RXTXRobot r)
      {
-        r.runMotor(RXTXRobot.MOTOR1, 220, RXTXRobot.MOTOR2, 200, 0);
+        r.runMotor(RXTXRobot.MOTOR1, 240, RXTXRobot.MOTOR2, 200, 0);
         r.sleep(1800);
      }
      public static void rotateCounterClockwise90(RXTXRobot r)
      {
-        r.runMotor(RXTXRobot.MOTOR1, -220, RXTXRobot.MOTOR2, -200, 0);
+        r.runMotor(RXTXRobot.MOTOR1, -240, RXTXRobot.MOTOR2, -200, 0);
         r.sleep(1800);
      }
     public static int pingMeasurement(RXTXRobot r)
@@ -169,12 +157,12 @@ public class Robot {
     }
     public static void deployWindProbe(RXTXRobot r)
     {
-        r.runMotor(RXTXRobot.MOTOR3, -200, 0);
+        r.runMotor(RXTXRobot.MOTOR3, 200, 0);
         r.sleep(35000);
     }
     public static void retractWindProbe(RXTXRobot r)
     {
-        r.runMotor(RXTXRobot.MOTOR3, 200, 0);
+        r.runMotor(RXTXRobot.MOTOR3, -200, 0);
         r.sleep(24000);
     }
     public static void deployConductivityProbe(RXTXRobot r)
@@ -213,9 +201,147 @@ public class Robot {
         deployWindProbe(r); 
         double windSpeed = getAnemometerReading(r);
         System.out.println("Windspeed equals " + windSpeed + ".");
+    }
+    public static void avoidRock(RXTXRobot r)
+    {
+        boolean atRock = false;
+        while (atRock == false) //Go towards sandbox
+        {
+            moveForward(r, 10);
+            if (pingMeasurement(r) <= 7)
+            {
+                r.runMotor(RXTXRobot.MOTOR1, 0, RXTXRobot.MOTOR2, 0, 0);
+                atRock = true;
+                break;
+            }   
+        }
+        rotateClockwise90(r);
+        moveForward(r, 100);
+        rotateCounterClockwise90(r);
+        moveForward(r, 100);
+    }
+    public static void upperLeftQuadrant(RXTXRobot r)
+    {
+        int xdistance = 0;
+        int ydistance = 0;
+        moveForward(r, 100);
+        ydistance += 100;
+        rotateCounterClockwise90(r);
+        while (pingMeasurement(r) > 10)
+        {
+            r.runMotor(RXTXRobot.MOTOR1, -470, RXTXRobot.MOTOR2, 360, 0); 
+            r.sleep(10);
+        }
+        ramp(r);
         rotateCounterClockwise90(r);
         r.runMotor(RXTXRobot.MOTOR1, -500, RXTXRobot.MOTOR2, 360, 0);
-        r.sleep(20000);
+        r.sleep(2000);
+        sandbox(r);
+        moveBackward(r, 10);
+        rotateCounterClockwise90(r);
+        while (xdistance < 300)
+        {
+            moveForward(r, 20);
+            xdistance += 20;
+        }
+        r.runMotor(RXTXRobot.MOTOR1, 0, RXTXRobot.MOTOR2, 0, 0); 
+        r.sleep(10000);
+        rotateCounterClockwise90(r);
+        moveForward(r, 100);
+        avoidRock(r);
+    }
+    public static void upperRightQuadrant(RXTXRobot r)
+    {
+        int xdistance = 0;
+        int ydistance = 0;
+        moveForward(r, 100);
+        rotateClockwise90(r);
+        moveForward(r, 100);
+        rotateCounterClockwise90(r);
+        avoidRock(r);
+        rotateClockwise90(r);
+        moveForward(r, 200);
+        while (pingMeasurement(r) > 10)
+        {
+            moveForward(r, 20);
+        }
+        ramp(r);
+        rotateCounterClockwise90(r);
+        r.runMotor(RXTXRobot.MOTOR1, -500, RXTXRobot.MOTOR2, 360, 0);
+        r.sleep(2000);
+        sandbox(r);
+        moveBackward(r, 10);
+        rotateCounterClockwise90(r);
+        while (xdistance < 300)
+        {
+            moveForward(r, 20);
+            xdistance += 20;
+        }
+        r.runMotor(RXTXRobot.MOTOR1, 0, RXTXRobot.MOTOR2, 0, 0); 
+        r.sleep(10000);
+    }
+    public static void lowerLeftQuadrant(RXTXRobot r)
+    {
+        int xdistance = 0;
+        int ydistance = 0;
+        moveForward(r, 100);
+        rotateClockwise90(r);
+        sandbox(r);
+        moveBackward(r, 10);
+        rotateCounterClockwise90(r);
+        moveForward(r, 60);
+        rotateClockwise90(r);
+        while (xdistance < 400)
+        {
+            moveForward(r, 20);
+            xdistance += 20;
+        }
+        r.runMotor(RXTXRobot.MOTOR1, 0, RXTXRobot.MOTOR2, 0, 0); 
+        r.sleep(10000);
+        rotateCounterClockwise90(r);
+        moveForward(r, 100);
+        avoidRock(r);
+        rotateClockwise90(r);
+        moveForward(r, 200);
+        while (pingMeasurement(r) > 10)
+        {
+            moveForward(r, 20);
+        }
+        ramp(r);
+        rotateCounterClockwise90(r);
+        r.runMotor(RXTXRobot.MOTOR1, -500, RXTXRobot.MOTOR2, 360, 0);
+        r.sleep(2000);
+    }
+    public static void lowerRightQuadrant(RXTXRobot r)
+    {
+        int xdistance = 0;
+        int ydistance = 0;
+        moveForward(r, 400);
+        rotateCounterClockwise90(r);
+        moveForward(r, 200);
+        rotateClockwise90(r);
+        moveForward(r, 500);
+        avoidRock(r);
+        rotateClockwise90(r);
+        moveForward(r, 200);
+        while (pingMeasurement(r) > 10)
+        {
+            moveForward(r, 20);
+        }
+        ramp(r);
+        rotateCounterClockwise90(r);
+        r.runMotor(RXTXRobot.MOTOR1, -500, RXTXRobot.MOTOR2, 360, 0);
+        r.sleep(2000);
+        sandbox(r);
+        moveBackward(r, 10);
+        rotateCounterClockwise90(r);
+        while (xdistance < 300)
+        {
+            moveForward(r, 20);
+            xdistance += 20;
+        }
+        r.runMotor(RXTXRobot.MOTOR1, 0, RXTXRobot.MOTOR2, 0, 0); 
+        r.sleep(10000);
     }
         
 }
