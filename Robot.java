@@ -45,28 +45,34 @@ public class Robot {
         */
         r.close();
     }
-    public static void moveForward(RXTXRobot r, int distance)
-    {
-        
-        int traveled = 0;
-        while (distance > traveled)
+    while (distance > traveled)
         {
             if (pingMeasurement(r) <= 10)
-            {
+            {   
                 r.runMotor(RXTXRobot.MOTOR1, 0, RXTXRobot.MOTOR2, 0, 0);
-                while (pingMeasurement(r) <= 10)
+                int reping = pingMeasurement(r);
+                if (reping > 10)
                 {
-                    rotateClockwise90(r);
-                    r.runMotor(RXTXRobot.MOTOR1, -470, RXTXRobot.MOTOR2, 360, 0); 
-                    r.sleep(500);
-                    rotateCounterClockwise90(r);
+                    r.runMotor(RXTXRobot.MOTOR1, -470, RXTXRobot.MOTOR2, 360, 0); //Move west
+                    r.sleep(270);
+                    traveled += 20;
                 }
-                r.runMotor(RXTXRobot.MOTOR1, -470, RXTXRobot.MOTOR2, 360, 0); 
-                r.sleep(270);
-                rotateCounterClockwise90(r);
-                r.runMotor(RXTXRobot.MOTOR1, -470, RXTXRobot.MOTOR2, 360, 0);
-                r.sleep(500);
-                traveled += 20;
+                else
+                {
+                    while (pingMeasurement(r) <= 10)
+                    {
+                        rotateClockwise90(r);
+                        r.runMotor(RXTXRobot.MOTOR1, -470, RXTXRobot.MOTOR2, 360, 0); 
+                        r.sleep(500);
+                        rotateCounterClockwise90(r);
+                    }
+                    r.runMotor(RXTXRobot.MOTOR1, -470, RXTXRobot.MOTOR2, 360, 0); 
+                    r.sleep(270);
+                    rotateCounterClockwise90(r);
+                    r.runMotor(RXTXRobot.MOTOR1, -470, RXTXRobot.MOTOR2, 360, 0);
+                    r.sleep(500);
+                    traveled += 20;
+                }
                 
             }
             else
