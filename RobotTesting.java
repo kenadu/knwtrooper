@@ -7,7 +7,7 @@ package robottest;
 import rxtxrobot.*;
 /**
  *
- * @author CT
+ * @author Maya
  */
 
 
@@ -29,18 +29,19 @@ public class RobotTest {
         
         
         
-        /*r.runMotor(RXTXRobot.MOTOR1, -455, RXTXRobot.MOTOR2, 400, 0);
+        r.runMotor(RXTXRobot.MOTOR1, -455, RXTXRobot.MOTOR2, 400, 0);
        r.sleep(6300);
-       rotateClockwise90(r);*/
-       /*ramp(r);
+       rotateClockwise90(r);
+       ramp(r);
         r.runMotor(RXTXRobot.MOTOR1, 0, RXTXRobot.MOTOR2, 0, 0);
         r.sleep(2000);
-             r.runMotor(RXTXRobot.MOTOR1, -205, RXTXRobot.MOTOR2, 150, 0);
-        r.sleep(5000);
+                r.runMotor(RXTXRobot.MOTOR3, 0, 0);
+                   r.sleep(2000);
+                    
 
-       //retractWindProbe(r);
+       retractWindProbe(r);
         
-       sandbox(r);*/
+       
         rotateClockwise90(r);
        moveBackward(r, 6000);
        rotateCounterClockwise90(r);
@@ -339,10 +340,9 @@ sandbox(r);
         r.sleep(11000);
         r.runMotor(RXTXRobot.MOTOR1, 0, RXTXRobot.MOTOR2, 0, 0);
         r.sleep(2000);
-        //deployWindProbe(r); 
-        //double windSpeed = getAnemometerReading(r);
-        //System.out.println("Windspeed equals " + windSpeed + ".");
-          //      r.runMotor(RXTXRobot.MOTOR3, 0, 0);
+        deployWindProbe(r); 
+        double windSpeed = getAnemometerReading(r);
+        System.out.println("Windspeed equals " + windSpeed + ".");
                    
 
     }
