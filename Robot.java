@@ -25,9 +25,7 @@ public class Robot {
         r.attachMotor(RXTXRobot.MOTOR3, 9);
         r.attachServo(RXTXRobot.SERVO1, 10);
         
-        int xdistance = 0; //First Quadrant = 0, Second Quadrant = 1160, Third Quadrant = 0 , Fourth Quadrant = 1160
-        int ydistance = 0; //First Quadrant = 0, Second Quadrant = 0, Third Quadrant = 1380, Fourth Quadrant = 1380
-        
+
         
         /*Bump Sensor
         r.refreshAnalogPins();
@@ -240,12 +238,6 @@ public class Robot {
             }   
         }
         moveBackward(r, 10);
-        rotateClockwise90(r);
-        moveForward(r);
-        r.sleep(2000);
-        rotateCounterClockwise90(r);
-        moveForward(r);
-        r.sleep(2000);
     }
     public static void upperLeftQuadrant(RXTXRobot r)
     {
@@ -276,11 +268,17 @@ public class Robot {
         r.sleep(10000);
         rotateCounterClockwise90(r);
         avoidRock(r);
+        rotateCounterClockwise90(r);
+        r.sleep(1000);
     }
     public static void upperRightQuadrant(RXTXRobot r)
     {
         searchLeft(r);
         avoidRock(r);
+        rotateClockwise90(r);
+        moveForward(r);
+        r.sleep(10000);
+        rotateCounterClockwise90(r);
         moveForward(r);
         r.sleep(10000);
         rotateCounterClockwise90(r);
@@ -324,7 +322,7 @@ public class Robot {
         {
             moveForward(r);
             r.sleep(500);
-            if (pingMeasurement(r) < 15)
+            if (pingMeasurement(r) < 20)
             {
                 atWall = true;
                 break;
@@ -338,46 +336,61 @@ public class Robot {
         r.sleep(10000);
         rotateCounterClockwise90(r);
         avoidRock(r);
-        rotateClockwise90(r);
-        moveForward(r);
-        while (pingMeasurement(r) > 10)
+        rotateCounterClockwise90(r);
+        atWall = false;
+        while (atWall == false)
         {
             moveForward(r);
+            r.sleep(500);
+            if (pingMeasurement(r) < 20)
+            {
+                atWall = true;
+                break;
+            }
         }
-        ramp(r);
+        rotateClockwise90(r);
+        moveForward(r);
+        r.sleep(5000);
         rotateCounterClockwise90(r);
-        r.runMotor(RXTXRobot.MOTOR1, -500, RXTXRobot.MOTOR2, 360, 0);
-        r.sleep(2000);
+        moveForward(r);
+        r.sleep(5000);
+        rotateClockwise90(r);
+        searchLeft(r);
+        ramp(r);
     }
     public static void lowerRightQuadrant(RXTXRobot r)
     {
-        int xdistance = 0;
-        int ydistance = 0;
-        moveForward(r); 
+        //Move to middle
+        r.runMotor(RXTXRobot.MOTOR1, 0, RXTXRobot.MOTOR2, 0, 0);
+        r.sleep(10000);
         rotateCounterClockwise90(r);
-        moveForward(r); 
-        rotateClockwise90(r);
-        moveForward(r);
         avoidRock(r);
-        rotateClockwise90(r);
-        moveForward(r);
-        while (pingMeasurement(r) > 10)
+        rotateCounterClockwise90(r);
+        boolean atWall = false;
+        while (atWall == false)
         {
             moveForward(r);
+            r.sleep(500);
+            if (pingMeasurement(r) < 20)
+            {
+                atWall = true;
+                break;
+            }
         }
+        rotateClockwise90(r);
+        moveForward(r);
+        r.sleep(5000);
+        rotateCounterClockwise90(r);
+        moveForward(r);
+        r.sleep(5000);
+        rotateClockwise90(r);
+        searchLeft(r);
         ramp(r);
         rotateCounterClockwise90(r);
-        r.runMotor(RXTXRobot.MOTOR1, -500, RXTXRobot.MOTOR2, 360, 0);
-        r.sleep(2000);
+        moveForward(r);
+        r.sleep(20000);
         sandbox(r);
-        moveBackward(r, 10);
-        rotateCounterClockwise90(r);
-        while (xdistance < 300)
-        {
-            moveForward(r);
-            xdistance += 20;
-        }
-        r.runMotor(RXTXRobot.MOTOR1, 0, RXTXRobot.MOTOR2, 0, 0); 
-        r.sleep(10000);
+        
+        
     }       
 }
